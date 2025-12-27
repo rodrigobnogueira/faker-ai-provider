@@ -5,7 +5,7 @@ Faker provider for generating AI/ML-related fake data.
 ## Installation
 
 ```bash
-pip install faker-ai
+pip install faker-ai-provider
 ```
 
 ## Usage
