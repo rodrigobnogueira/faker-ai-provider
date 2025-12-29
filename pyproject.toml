@@ -7,6 +7,7 @@ name = "faker-ai-provider"
 version = "1.0.2"
 description = "Generate realistic AI/ML test data: 65+ models, 45+ companies, 25+ frameworks, 30+ datasets, architectures, tasks, and parameters"
 readme = "README.md"
+authors = [{name = "Rodrigo Nogueira", email = "rodrigo.b.nogueira@gmail.com"}]
 license = {text = "MIT"}
 keywords = ["faker", "ai", "ml", "machine-learning", "fake-data", "testing"]
 classifiers = [
