@@ -1,146 +1,59 @@
+from typing import TypedDict
+
 from faker.providers import BaseProvider, ElementsType
+
+from .types import ModelData
+
+
+class ModelScenario(TypedDict):
+    model: str
+    company: str
+    architecture: str
+    modality: list[str]
+    tasks: list[str]
+    parameters: str
+    release_year: int
 
 
 class AiProvider(BaseProvider):
-    """Faker provider for generating AI/ML-related fake data."""
+    """Faker provider for generating AI/ML-related fake data with correlations."""
 
-    ai_models: ElementsType[str] = (
-        "GPT-4",
-        "GPT-4o",
-        "GPT-4o-mini",
-        "GPT-3.5-turbo",
-        "GPT-4.5",
-        "GPT-5",
-        "GPT-5.2",
-        "Claude 3 Opus",
-        "Claude 3 Sonnet",
-        "Claude 3 Haiku",
-        "Claude 3.5 Sonnet",
-        "Claude 3.7 Sonnet",
-        "Claude 4",
-        "Gemini Pro",
-        "Gemini Ultra",
-        "Gemini 1.5 Pro",
-        "Gemini 1.5 Flash",
-        "Gemini 2.5",
-        "Gemini 3",
-        "Gemini 3 Flash",
-        "LLaMA 2 7B",
-        "LLaMA 2 13B",
-        "LLaMA 2 70B",
-        "LLaMA 3 8B",
-        "LLaMA 3 70B",
-        "LLaMA 3.1 405B",
-        "LLaMA 4",
-        "Mistral 7B",
-        "Mistral 8x7B",
-        "Mixtral 8x22B",
-        "Mistral Large 3",
-        "Mistral Nemo",
-        "Falcon 40B",
-        "Falcon 180B",
-        "PaLM 2",
-        "BERT",
-        "RoBERTa",
-        "T5",
-        "DALL-E 3",
-        "Stable Diffusion XL",
-        "Midjourney v6",
-        "Midjourney v7",
-        "Whisper",
-        "Codex",
-        "Copilot",
-        "StarCoder",
-        "CodeLlama",
-        "Phi-2",
-        "Phi-3",
-        "Qwen 72B",
-        "Qwen3",
-        "DeepSeek-V2",
-        "DeepSeek-V3",
-        "Command R+",
-        "Cohere Embed",
-        "Grok-3",
-        "Grok-4",
-        "GLM 4.7",
-        "Flux Pro",
-        "Sora 2",
-        "Gemma 2",
-    )
+    _model_correlations: dict[str, ModelData] | None = None
 
-    ai_companies: ElementsType[str] = (
-        "OpenAI",
-        "Anthropic",
-        "Google DeepMind",
-        "Meta AI",
-        "Microsoft",
-        "Mistral AI",
-        "Cohere",
-        "Hugging Face",
-        "Stability AI",
-        "Midjourney",
-        "xAI",
-        "Inflection AI",
-        "AI21 Labs",
-        "Aleph Alpha",
-        "Character.AI",
-        "Adept AI",
-        "Runway",
-        "Jasper",
-        "Scale AI",
-        "Databricks",
-        "Nvidia",
-        "Amazon AWS",
-        "IBM Watson",
-        "Baidu",
-        "Alibaba Cloud",
-        "Tencent",
-        "ByteDance",
-        "Anduril",
-        "Grammarly",
-        "Hive",
-        "Sanctuary",
-        "Lambda",
-        "Dataiku",
-        "Tessian",
-        "Reclaim.ai",
-        "Fireflies.ai",
-        "Roboflow",
-        "DevRev",
-        "People.ai",
-        "Nektar.ai",
-        "World Labs",
-        "Thinking Machine Labs",
-        "Mercor",
-        "Anysphere",
-    )
+    @property
+    def model_correlations(self) -> dict[str, ModelData]:
+        if self._model_correlations is None:
+            from .model_correlations import MODEL_CORRELATIONS
+            self._model_correlations = MODEL_CORRELATIONS
+        return self._model_correlations
 
-    ai_model_architectures: ElementsType[str] = (
-        "Transformer",
-        "GPT",
-        "BERT",
-        "T5",
-        "Diffusion",
-        "GAN",
-        "VAE",
-        "RNN",
-        "LSTM",
-        "CNN",
-        "ResNet",
-        "ViT",
-        "Mamba",
-        "RWKV",
-        "Mixture of Experts",
-        "State Space Model",
-        "Retrieval-Augmented Generation",
-        "Encoder-Decoder",
-        "Decoder-Only",
-        "Encoder-Only",
-        "Vision-Language Model",
-        "Agentic AI",
-        "Hybrid Model",
-        "Dense Model",
-    )
+    @property
+    def ai_models(self) -> tuple[str, ...]:
+        return tuple(self.model_correlations.keys())
+
+    @property
+    def ai_companies(self) -> tuple[str, ...]:
+        companies = {data["company"] for data in self.model_correlations.values()}
+        return tuple(sorted(companies))
+
+    @property
+    def ai_architectures(self) -> tuple[str, ...]:
+        archs = {data["architecture"] for data in self.model_correlations.values()}
+        return tuple(sorted(archs))
+
+    @property
+    def ai_tasks_list(self) -> tuple[str, ...]:
+        all_tasks: set[str] = set()
+        for data in self.model_correlations.values():
+            all_tasks.update(data["tasks"])
+        return tuple(sorted(all_tasks))
+
+    @property
+    def ai_modalities(self) -> tuple[str, ...]:
+        all_mods: set[str] = set()
+        for data in self.model_correlations.values():
+            all_mods.update(data["modality"])
+        return tuple(sorted(all_mods))
 
     ml_frameworks: ElementsType[str] = (
         "PyTorch",
@@ -166,63 +79,6 @@ class AiProvider(BaseProvider):
         "TensorFlow Lite",
         "OpenCV",
         "Caffe",
-    )
-
-    ai_tasks: ElementsType[str] = (
-        "text-generation",
-        "text-classification",
-        "question-answering",
-        "summarization",
-        "translation",
-        "sentiment-analysis",
-        "named-entity-recognition",
-        "fill-mask",
-        "text-to-image",
-        "image-to-text",
-        "image-classification",
-        "object-detection",
-        "image-segmentation",
-        "speech-to-text",
-        "text-to-speech",
-        "audio-classification",
-        "video-classification",
-        "zero-shot-classification",
-        "feature-extraction",
-        "embedding-generation",
-        "code-generation",
-        "conversational",
-        "reinforcement-learning",
-        "recommendation",
-        "multi-modal generation",
-        "agentic workflow",
-        "reasoning",
-        "world-modeling",
-        "autonomous agents",
-    )
-
-    ai_model_parameters: ElementsType[str] = (
-        "1B",
-        "3B",
-        "7B",
-        "8B",
-        "9B",
-        "13B",
-        "27B",
-        "30B",
-        "33B",
-        "34B",
-        "40B",
-        "65B",
-        "70B",
-        "72B",
-        "100B",
-        "175B",
-        "180B",
-        "405B",
-        "500B",
-        "540B",
-        "1T",
-        "1.5T",
     )
 
     ai_datasets: ElementsType[str] = (
@@ -254,9 +110,10 @@ class AiProvider(BaseProvider):
         "RefinedWeb",
         "FineWeb",
         "Proof-Pile",
-        "Boston House Price",
-        "Iris",
-        "Dog Breed Identification",
+        "FineWeb-Edu",
+        "SlimPajama",
+        "WebText",
+        "Anthropic HH-RLHF",
     )
 
     def ai_model(self) -> str:
@@ -265,17 +122,71 @@ class AiProvider(BaseProvider):
     def ai_company(self) -> str:
         return self.random_element(self.ai_companies)
 
-    def ai_model_architecture(self) -> str:
-        return self.random_element(self.ai_model_architectures)
+    def ai_architecture(self) -> str:
+        return self.random_element(self.ai_architectures)
+
+    def ai_task(self) -> str:
+        return self.random_element(self.ai_tasks_list)
+
+    def ai_modality(self) -> str:
+        return self.random_element(self.ai_modalities)
 
     def ml_framework(self) -> str:
         return self.random_element(self.ml_frameworks)
 
-    def ai_task(self) -> str:
-        return self.random_element(self.ai_tasks)
-
-    def ai_model_parameter(self) -> str:
-        return self.random_element(self.ai_model_parameters)
-
     def ai_dataset(self) -> str:
         return self.random_element(self.ai_datasets)
+
+    def ai_model_for_company(self, company: str) -> str:
+        models = [m for m, d in self.model_correlations.items() if d["company"] == company]
+        if not models:
+            raise ValueError(f"No models found for company '{company}'")
+        return self.random_element(models)
+
+    def ai_company_for_model(self, model: str) -> str:
+        if model not in self.model_correlations:
+            raise ValueError(f"Model '{model}' not found")
+        return self.model_correlations[model]["company"]
+
+    def ai_tasks_for_model(self, model: str) -> list[str]:
+        if model not in self.model_correlations:
+            raise ValueError(f"Model '{model}' not found")
+        return list(self.model_correlations[model]["tasks"])
+
+    def ai_models_for_task(self, task: str) -> list[str]:
+        return [m for m, d in self.model_correlations.items() if task in d["tasks"]]
+
+    def ai_models_by_architecture(self, architecture: str) -> list[str]:
+        return [m for m, d in self.model_correlations.items() if d["architecture"] == architecture]
+
+    def ai_models_by_modality(self, modality: str) -> list[str]:
+        return [m for m, d in self.model_correlations.items() if modality in d["modality"]]
+
+    def ai_parameters_for_model(self, model: str) -> str:
+        if model not in self.model_correlations:
+            raise ValueError(f"Model '{model}' not found")
+        return self.model_correlations[model]["parameters"]
+
+    def model_scenario(self, model: str | None = None) -> ModelScenario:
+        if model is None:
+            model = self.ai_model()
+        elif model not in self.model_correlations:
+            raise ValueError(f"Model '{model}' not found")
+
+        data = self.model_correlations[model]
+        return {
+            "model": model,
+            "company": data["company"],
+            "architecture": data["architecture"],
+            "modality": list(data["modality"]),
+            "tasks": list(data["tasks"]),
+            "parameters": data["parameters"],
+            "release_year": data["release_year"],
+        }
+
+    def ai_model_description(self, model: str | None = None) -> str:
+        scenario = self.model_scenario(model)
+        return (
+            f"{scenario['model']} by {scenario['company']} "
+            f"({scenario['parameters']}, {scenario['architecture']})"
+        )
