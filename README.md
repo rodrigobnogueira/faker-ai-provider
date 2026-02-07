@@ -10,7 +10,7 @@ Faker provider for generating AI/ML-related fake data with **correlated relation
 pip install faker-ai-provider
 ```
 
-## Usage
+## Quick Start
 
 ```python
 from faker import Faker
@@ -19,30 +19,24 @@ from faker_ai import AiProvider
 fake = Faker()
 fake.add_provider(AiProvider)
 
-# Basic random data
+# Generate correlated AI data
 fake.ai_model()           # 'Claude Opus 4.6'
 fake.ai_company()         # 'Anthropic'
-fake.ai_architecture()    # 'Transformer'
-fake.ml_framework()       # 'PyTorch'
-fake.ai_task()            # 'text-generation'
-fake.ai_dataset()         # 'ImageNet'
+fake.full_ai_model_spec() # 'GPT-5.2 by OpenAI: Transformer architecture, 1.5T parameters, for reasoning.'
+```
 
-# Correlated data
-fake.ai_model_for_company("OpenAI")     # 'GPT-5.2'
-fake.ai_company_for_model("LLaMA 4")    # 'Meta AI'
-fake.ai_tasks_for_model("Claude Opus 4.6")  # ['text-generation', 'reasoning', ...]
+## Seeding for Reproducibility
 
-# Complete model scenario
-scenario = fake.model_scenario()
-# {
-#     'model': 'GPT-5.2',
-#     'company': 'OpenAI',
-#     'architecture': 'Transformer',
-#     'modality': ['text', 'image', 'audio', 'video'],
-#     'tasks': ['text-generation', 'reasoning', 'code-generation', ...],
-#     'parameters': '1.5T',
-#     'release_year': 2026
-# }
+Use Faker's seeding to generate consistent, reproducible data across runs:
+
+```python
+fake = Faker()
+fake.add_provider(AiProvider)
+fake.seed_instance(42)
+
+# These will always return the same values with seed 42
+print(fake.ai_model())    # Always 'LLaMA 3 70B'
+print(fake.ai_company())  # Always 'Apple'
 ```
 
 ## Available Methods
@@ -67,9 +61,76 @@ scenario = fake.model_scenario()
 | `ai_models_for_task(task)` | Get models that support a task |
 | `ai_models_by_architecture(arch)` | Filter models by architecture |
 | `ai_models_by_modality(modality)` | Filter models by modality |
-| `ai_parameters_for_model(model)` | Get parameter count for a model |
 | `model_scenario(model=None)` | Get complete correlated model data |
-| `ai_model_description(model=None)` | Get formatted model description |
+
+### Composite Methods
+| Method | Description |
+|--------|-------------|
+| `full_ai_model_spec()` | Formatted spec: "Model by Company: arch, params, for task." |
+| `ai_training_run()` | Dict with model, framework, dataset, task |
+| `ai_deployment()` | Dict with model, endpoint, version, status |
+| `ai_experiment()` | Dict with experiment_id, accuracy, loss, epochs |
+
+## Advanced Usage
+
+### Populate a Database with AI Records
+
+```python
+from faker import Faker
+from faker_ai import AiProvider
+
+fake = Faker()
+fake.add_provider(AiProvider)
+
+# Generate 100 AI deployment records
+deployments = [fake.ai_deployment() for _ in range(100)]
+
+# Generate experiment tracking data
+experiments = [fake.ai_experiment() for _ in range(50)]
+```
+
+### Generate ML Pipeline Configuration
+
+```python
+fake.seed_instance(42)  # Reproducible pipeline
+
+pipeline = {
+    "name": f"pipeline-{fake.random_int(1000, 9999)}",
+    "training": fake.ai_training_run(),
+    "deployment": fake.ai_deployment(),
+    "experiment": fake.ai_experiment(),
+}
+```
+
+### Filter Models by Capability
+
+```python
+# Get all models that support code generation
+code_models = fake.ai_models_for_task("code-generation")
+
+# Get all diffusion models
+diffusion_models = fake.ai_models_by_architecture("Diffusion")
+
+# Get all multimodal models
+video_models = fake.ai_models_by_modality("video")
+```
+
+## Model Scenario
+
+Get complete, correlated model information:
+
+```python
+scenario = fake.model_scenario()
+# {
+#     'model': 'GPT-5.2',
+#     'company': 'OpenAI',
+#     'architecture': 'Transformer',
+#     'modality': ['text', 'image', 'audio', 'video'],
+#     'tasks': ['text-generation', 'reasoning', 'code-generation', ...],
+#     'parameters': '1.5T',
+#     'release_year': 2026
+# }
+```
 
 ## License
 

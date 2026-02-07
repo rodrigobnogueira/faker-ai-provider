@@ -137,3 +137,75 @@ class TestAiModelDescription:
             desc = faker.ai_model_description()
             assert isinstance(desc, str)
             assert " by " in desc
+
+
+class TestCompositeMethods:
+    def test_full_ai_model_spec(self, faker):
+        spec = faker.full_ai_model_spec("Claude Opus 4.6")
+        assert "Claude Opus 4.6" in spec
+        assert "Anthropic" in spec
+        assert "Transformer" in spec
+        assert "1T parameters" in spec
+
+    def test_full_ai_model_spec_random(self, faker):
+        for _ in range(10):
+            spec = faker.full_ai_model_spec()
+            assert isinstance(spec, str)
+            assert " by " in spec
+            assert "parameters" in spec
+
+    def test_ai_training_run(self, faker):
+        run = faker.ai_training_run()
+        assert "model" in run
+        assert "framework" in run
+        assert "dataset" in run
+        assert "task" in run
+
+    def test_ai_deployment(self, faker):
+        deployment = faker.ai_deployment()
+        assert "model" in deployment
+        assert "endpoint" in deployment
+        assert "status" in deployment
+        assert deployment["status"] in ("active", "deployed", "staging", "beta")
+
+    def test_ai_experiment(self, faker):
+        experiment = faker.ai_experiment()
+        assert "experiment_id" in experiment
+        assert "accuracy" in experiment
+        assert "loss" in experiment
+        assert experiment["experiment_id"].startswith("exp-")
+
+
+class TestSeeding:
+    def test_seeding_reproducibility(self):
+        from faker import Faker
+        from faker_ai import AiProvider
+
+        fake1 = Faker()
+        fake1.add_provider(AiProvider)
+        fake1.seed_instance(42)
+
+        fake2 = Faker()
+        fake2.add_provider(AiProvider)
+        fake2.seed_instance(42)
+
+        assert fake1.ai_model() == fake2.ai_model()
+        assert fake1.ai_company() == fake2.ai_company()
+        assert fake1.full_ai_model_spec() == fake2.full_ai_model_spec()
+
+    def test_different_seeds_different_results(self):
+        from faker import Faker
+        from faker_ai import AiProvider
+
+        fake1 = Faker()
+        fake1.add_provider(AiProvider)
+        fake1.seed_instance(42)
+
+        fake2 = Faker()
+        fake2.add_provider(AiProvider)
+        fake2.seed_instance(123)
+
+        results1 = [fake1.ai_model() for _ in range(5)]
+        results2 = [fake2.ai_model() for _ in range(5)]
+        assert results1 != results2
+

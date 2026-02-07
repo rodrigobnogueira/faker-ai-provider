@@ -190,3 +190,48 @@ class AiProvider(BaseProvider):
             f"{scenario['model']} by {scenario['company']} "
             f"({scenario['parameters']}, {scenario['architecture']})"
         )
+
+    def full_ai_model_spec(self, model: str | None = None) -> str:
+        scenario = self.model_scenario(model)
+        task = self.random_element(scenario["tasks"])
+        return (
+            f"{scenario['model']} by {scenario['company']}: "
+            f"{scenario['architecture']} architecture, {scenario['parameters']} parameters, "
+            f"for {task}."
+        )
+
+    def ai_training_run(self) -> dict[str, str]:
+        scenario = self.model_scenario()
+        return {
+            "model": scenario["model"],
+            "framework": self.ml_framework(),
+            "dataset": self.ai_dataset(),
+            "parameters": scenario["parameters"],
+            "task": self.random_element(scenario["tasks"]),
+            "company": scenario["company"],
+        }
+
+    def ai_deployment(self) -> dict[str, str]:
+        scenario = self.model_scenario()
+        return {
+            "model": scenario["model"],
+            "company": scenario["company"],
+            "architecture": scenario["architecture"],
+            "version": f"{self.random_int(1, 5)}.{self.random_int(0, 9)}.{self.random_int(0, 99)}",
+            "endpoint": f"https://api.{scenario['company'].lower().replace(' ', '')}.ai/v1/{scenario['model'].lower().replace(' ', '-')}",
+            "status": self.random_element(("active", "deployed", "staging", "beta")),
+        }
+
+    def ai_experiment(self) -> dict[str, str | float]:
+        training = self.ai_training_run()
+        return {
+            "experiment_id": f"exp-{self.random_int(1000, 9999)}",
+            "model": training["model"],
+            "framework": training["framework"],
+            "dataset": training["dataset"],
+            "epochs": self.random_int(1, 100),
+            "learning_rate": round(self.random_int(1, 100) * 0.0001, 5),
+            "accuracy": round(self.random_int(70, 99) + self.random_int(0, 99) * 0.01, 2),
+            "loss": round(self.random_int(1, 50) * 0.01, 3),
+        }
+
