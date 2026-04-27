@@ -73,7 +73,7 @@ class TestCorrelationMethods:
             faker.ai_company_for_model("NonExistentModel")
 
     def test_ai_tasks_for_model(self, faker):
-        tasks = faker.ai_tasks_for_model("Claude Opus 4.6")
+        tasks = faker.ai_tasks_for_model("Claude Opus 4.7")
         assert isinstance(tasks, list)
         assert "reasoning" in tasks
 
@@ -93,8 +93,66 @@ class TestCorrelationMethods:
         assert len(models) > 0
 
     def test_ai_parameters_for_model(self, faker):
-        params = faker.ai_parameters_for_model("GPT-5.2")
-        assert params == "1.5T"
+        params = faker.ai_parameters_for_model("gpt-oss-120b")
+        assert params == "120B"
+
+    def test_catalog_includes_recent_models(self, faker):
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        expected_models = {
+            "GPT-5.2",
+            "GPT-5.2 pro",
+            "GPT-5.3-Codex",
+            "GPT-5.3-Codex-Spark",
+            "Claude Opus 4.7",
+            "Gemini 3 Pro Preview",
+            "Llama 4 Maverick",
+            "Mistral Small 4",
+            "Grok 4.20",
+            "DeepSeek-V3.2",
+            "Cohere Transcribe",
+        }
+        assert expected_models.issubset(MODEL_CORRELATIONS)
+
+    def test_catalog_keeps_verified_legacy_models(self, faker):
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        expected_models = {
+            "GPT-4o",
+            "GPT-4",
+            "DALL-E 3",
+            "Claude Opus 4.6",
+            "Claude Sonnet 4.5",
+            "Claude 3 Opus",
+            "Gemini 1.5 Pro",
+            "Gemma 2 27B",
+            "Imagen 4",
+            "Veo 2",
+            "Mixtral 8x22B",
+            "DeepSeek-V3",
+            "Qwen2.5",
+            "Qwen-VL-Max",
+            "Command R+",
+            "Stable Diffusion XL",
+            "Recraft V3",
+            "Ideogram 3.0",
+            "Phi-3",
+            "Falcon 180B",
+        }
+        assert expected_models.issubset(MODEL_CORRELATIONS)
+
+    def test_catalog_omits_unverified_future_models(self, faker):
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        unverified_models = {
+            "Claude 5",
+            "DALL-E 4",
+            "DeepSeek-V4",
+            "Grok-5",
+            "LLaMA 4.1",
+            "Stable Diffusion 4",
+        }
+        assert MODEL_CORRELATIONS.keys().isdisjoint(unverified_models)
 
 
 class TestModelScenario:
@@ -109,8 +167,8 @@ class TestModelScenario:
         assert "release_year" in scenario
 
     def test_model_scenario_specific(self, faker):
-        scenario = faker.model_scenario("Claude Opus 4.6")
-        assert scenario["model"] == "Claude Opus 4.6"
+        scenario = faker.model_scenario("Claude Opus 4.7")
+        assert scenario["model"] == "Claude Opus 4.7"
         assert scenario["company"] == "Anthropic"
         assert isinstance(scenario["tasks"], list)
 
@@ -127,10 +185,10 @@ class TestModelScenario:
 
 class TestAiModelDescription:
     def test_ai_model_description(self, faker):
-        desc = faker.ai_model_description("GPT-5.2")
-        assert "GPT-5.2" in desc
+        desc = faker.ai_model_description("gpt-oss-120b")
+        assert "gpt-oss-120b" in desc
         assert "OpenAI" in desc
-        assert "1.5T" in desc
+        assert "120B" in desc
 
     def test_ai_model_description_random(self, faker):
         for _ in range(10):
@@ -141,11 +199,11 @@ class TestAiModelDescription:
 
 class TestCompositeMethods:
     def test_full_ai_model_spec(self, faker):
-        spec = faker.full_ai_model_spec("Claude Opus 4.6")
-        assert "Claude Opus 4.6" in spec
+        spec = faker.full_ai_model_spec("Claude Opus 4.7")
+        assert "Claude Opus 4.7" in spec
         assert "Anthropic" in spec
         assert "Transformer" in spec
-        assert "1T parameters" in spec
+        assert "undisclosed parameters" in spec
 
     def test_full_ai_model_spec_random(self, faker):
         for _ in range(10):
@@ -208,4 +266,3 @@ class TestSeeding:
         results1 = [fake1.ai_model() for _ in range(5)]
         results2 = [fake2.ai_model() for _ in range(5)]
         assert results1 != results2
-
