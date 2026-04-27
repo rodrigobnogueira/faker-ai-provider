@@ -71,13 +71,13 @@ def showcase_correlated_data() -> None:
         print(f"  • {company:<20} → {model}")
 
     print_subheader("Company for Model")
-    models = ["GPT-5.2", "Claude Opus 4.6", "Gemini 3 Flash", "LLaMA 4"]
+    models = ["GPT-5.3-Codex", "Claude Opus 4.7", "Gemini 3 Pro Preview", "Llama 4 Maverick"]
     for model in models:
         company = fake.ai_company_for_model(model)
         print(f"  • {model:<20} → {company}")
 
     print_subheader("Tasks for Model")
-    model = "Claude Opus 4.6"
+    model = "Claude Opus 4.7"
     print(f"\n  Model: {model}")
     tasks = fake.ai_tasks_for_model(model)
     for task in tasks:
@@ -138,7 +138,7 @@ def main() -> None:
     print("  FAKER AI PROVIDER - CAPABILITIES SHOWCASE")
     print("=" * 70)
     print("\n🤖 Generating realistic AI/ML test data with correlations...")
-    print("📅 Model data updated: February 2026\n")
+    print("📅 Model data updated: April 2026\n")
 
     showcase_basic_data()
     showcase_tasks_and_modalities()

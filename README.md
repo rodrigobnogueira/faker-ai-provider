@@ -2,7 +2,7 @@
 
 Faker provider for generating AI/ML-related fake data with **correlated relationships** between models, companies, architectures, and capabilities.
 
-> **Model Data Updated:** February 2026 (includes Claude Opus 4.6, GPT-5.2, Gemini 3, LLaMA 4, and more)
+> **Model Data Updated:** April 2026 (includes GPT-5.3-Codex, Claude Opus 4.7, Gemini 3, Llama 4, Mistral Small 4, Grok 4.20, and more)
 
 ## Installation
 
@@ -20,9 +20,9 @@ fake = Faker()
 fake.add_provider(AiProvider)
 
 # Generate correlated AI data
-fake.ai_model()           # 'Claude Opus 4.6'
+fake.ai_model()           # 'Claude Opus 4.7'
 fake.ai_company()         # 'Anthropic'
-fake.full_ai_model_spec() # 'GPT-5.2 by OpenAI: Transformer architecture, 1.5T parameters, for reasoning.'
+fake.full_ai_model_spec() # 'gpt-oss-120b by OpenAI: Transformer architecture, 120B parameters, for reasoning.'
 ```
 
 ## Seeding for Reproducibility
@@ -44,7 +44,7 @@ print(fake.ai_company())  # Always 'Apple'
 ### Basic Methods
 | Method | Example |
 |--------|---------|
-| `ai_model()` | GPT-5.2, Claude Opus 4.6, Gemini 3 Flash |
+| `ai_model()` | GPT-5.3-Codex, Claude Opus 4.7, Gemini 3 Pro Preview |
 | `ai_company()` | OpenAI, Anthropic, Google DeepMind |
 | `ai_architecture()` | Transformer, Diffusion, Mixture of Experts |
 | `ai_task()` | text-generation, code-generation, reasoning |
@@ -127,7 +127,7 @@ scenario = fake.model_scenario()
 #     'architecture': 'Transformer',
 #     'modality': ['text', 'image', 'audio', 'video'],
 #     'tasks': ['text-generation', 'reasoning', 'code-generation', ...],
-#     'parameters': '1.5T',
+#     'parameters': 'undisclosed',
 #     'release_year': 2026
 # }
 ```
