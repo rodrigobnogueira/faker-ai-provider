@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "faker-ai-provider"
-version = "2.0.0"
+version = "2.1.0"
 description = "Generate realistic AI/ML test data: 130+ models, 30+ companies, 20+ frameworks, 30+ datasets, architectures, tasks, and parameters"
 readme = "README.md"
 authors = [{name = "Rodrigo Nogueira", email = "rodrigo.b.nogueira@gmail.com"}]
