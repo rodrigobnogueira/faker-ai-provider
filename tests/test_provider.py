@@ -114,6 +114,62 @@ class TestCorrelationMethods:
         }
         assert expected_models.issubset(MODEL_CORRELATIONS)
 
+    def test_catalog_includes_july_2026_refresh_models(self, faker):
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        expected_models = {
+            "Claude Fable 5",
+            "Claude Sonnet 5",
+            "Claude Opus 4.8",
+            "Claude Haiku 4.5",
+            "GPT-5.5",
+            "GPT-5.4",
+            "GPT Image 2",
+            "Gemini 3.5 Flash",
+            "Gemini 3.1 Pro Preview",
+            "Gemma 4 31B",
+            "Gemini Omni Flash Preview",
+            "Muse Spark",
+            "Mistral Medium 3.5",
+            "DeepSeek-V4-Pro",
+            "DeepSeek-V4-Flash",
+            "Grok 4.3",
+            "Grok Imagine Video 1.5",
+            "Qwen3.7-Max",
+            "Qwen3.5",
+            "GLM-5.2",
+            "Kimi K2.6",
+            "Command A+",
+            "FLUX.2 pro",
+            "Midjourney v8",
+            "Runway Gen-4.5",
+            "Kling 3.0",
+            "Ideogram 4.0",
+            "Stable Audio 3.0",
+            "Eleven Music v2",
+            "Phi-4-reasoning-vision",
+        }
+        assert expected_models.issubset(MODEL_CORRELATIONS)
+
+    def test_claude_5_family_correlations(self, faker):
+        for model in ("Claude Fable 5", "Claude Sonnet 5"):
+            assert faker.ai_company_for_model(model) == "Anthropic"
+            assert faker.ai_parameters_for_model(model) == "undisclosed"
+            tasks = faker.ai_tasks_for_model(model)
+            assert "reasoning" in tasks
+            assert "agentic workflow" in tasks
+
+    def test_new_open_weights_parameter_counts(self, faker):
+        assert faker.ai_parameters_for_model("DeepSeek-V4-Pro") == "1.6T total / 49B active"
+        assert faker.ai_parameters_for_model("Kimi K2.6") == "1T total / 32B active"
+        assert faker.ai_parameters_for_model("Qwen3.5") == "397B total / 17B active"
+        assert faker.ai_parameters_for_model("Mistral Medium 3.5") == "128B"
+        assert faker.ai_parameters_for_model("Gemma 4 26B") == "26B total / 3.8B active"
+
+    def test_new_vendor_moonshot_ai(self, faker):
+        assert faker.ai_company_for_model("Kimi K2.6") == "Moonshot AI"
+        assert faker.ai_model_for_company("Moonshot AI") == "Kimi K2.6"
+
     def test_catalog_keeps_verified_legacy_models(self, faker):
         from faker_ai.model_correlations import MODEL_CORRELATIONS
 
@@ -147,10 +203,29 @@ class TestCorrelationMethods:
         unverified_models = {
             "Claude 5",
             "DALL-E 4",
-            "DeepSeek-V4",
             "Grok-5",
+            "Grok 5",
             "LLaMA 4.1",
             "Stable Diffusion 4",
+            "GPT-6",
+            "Sora 3",
+            "Llama 4 Behemoth",
+            "Llama 5",
+            "Mistral Large 4",
+            "DeepSeek-R2",
+            "Veo 4",
+            "Imagen 5",
+            "Gemini 3.5 Pro",
+            "Phi-5",
+            "Qwen4",
+            "GLM-6",
+            "Kimi K3",
+            "Runway Gen-5",
+            "Midjourney v9",
+            "Eleven v4",
+            "FLUX.3",
+            "Ideogram 5",
+            "Pika 3.0",
         }
         assert MODEL_CORRELATIONS.keys().isdisjoint(unverified_models)
 

@@ -4,7 +4,7 @@ AI Model Correlations Data
 This module contains the MODEL_CORRELATIONS dictionary mapping AI models
 to their companies, architectures, modalities, tasks, and parameters.
 
-Data updated as of April 2026 with current public model families. Parameter
+Data updated as of July 2026 with current public model families. Parameter
 counts are marked as "undisclosed" when vendors do not publish them.
 """
 
@@ -12,6 +12,30 @@ from .types import ModelData
 
 
 MODEL_CORRELATIONS: dict[str, ModelData] = {
+    "GPT-5.5": {
+        "company": "OpenAI",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "GPT-5.5 Pro": {
+        "company": "OpenAI",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "GPT-5.4": {
+        "company": "OpenAI",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
     "GPT-5.2": {
         "company": "OpenAI",
         "architecture": "Transformer",
@@ -124,6 +148,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2026,
     },
+    "GPT Image 2": {
+        "company": "OpenAI",
+        "architecture": "Diffusion",
+        "modality": ["image"],
+        "tasks": ["text-to-image", "image-to-image"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
     "GPT Image 1.5": {
         "company": "OpenAI",
         "architecture": "Diffusion",
@@ -164,6 +196,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2025,
     },
+    "GPT Realtime 2": {
+        "company": "OpenAI",
+        "architecture": "Transformer",
+        "modality": ["text", "audio"],
+        "tasks": ["conversational", "speech-to-text", "text-to-speech"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
     "GPT Realtime": {
         "company": "OpenAI",
         "architecture": "Transformer",
@@ -179,6 +219,30 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["speech-to-text", "audio-classification"],
         "parameters": "1.5B",
         "release_year": 2022,
+    },
+    "Claude Fable 5": {
+        "company": "Anthropic",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Claude Sonnet 5": {
+        "company": "Anthropic",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Claude Opus 4.8": {
+        "company": "Anthropic",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
     },
     "Claude Opus 4.7": {
         "company": "Anthropic",
@@ -268,6 +332,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2024,
     },
+    "Claude Haiku 4.5": {
+        "company": "Anthropic",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "conversational", "code-generation"],
+        "parameters": "undisclosed",
+        "release_year": 2025,
+    },
     "Claude Haiku 3.5": {
         "company": "Anthropic",
         "architecture": "Transformer",
@@ -283,6 +355,30 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["text-generation", "conversational"],
         "parameters": "undisclosed",
         "release_year": 2024,
+    },
+    "Gemini 3.5 Flash": {
+        "company": "Google DeepMind",
+        "architecture": "Transformer",
+        "modality": ["text", "image", "audio", "video"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow", "multi-modal generation"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Gemini 3.1 Pro Preview": {
+        "company": "Google DeepMind",
+        "architecture": "Transformer",
+        "modality": ["text", "image", "audio", "video"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "multi-modal generation"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Gemini 3.1 Flash Image": {
+        "company": "Google DeepMind",
+        "architecture": "Transformer",
+        "modality": ["image", "text"],
+        "tasks": ["text-to-image", "image-to-image", "multi-modal generation"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
     },
     "Gemini 3 Pro Preview": {
         "company": "Google DeepMind",
@@ -356,6 +452,30 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2024,
     },
+    "Gemini Embedding 2": {
+        "company": "Google DeepMind",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["embedding-generation", "feature-extraction"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Gemma 4 31B": {
+        "company": "Google DeepMind",
+        "architecture": "Transformer",
+        "modality": ["text", "image", "video"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "multi-modal generation"],
+        "parameters": "31B",
+        "release_year": 2026,
+    },
+    "Gemma 4 26B": {
+        "company": "Google DeepMind",
+        "architecture": "Mixture of Experts",
+        "modality": ["text", "image", "video"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "multi-modal generation"],
+        "parameters": "26B total / 3.8B active",
+        "release_year": 2026,
+    },
     "Gemma 3 27B": {
         "company": "Google DeepMind",
         "architecture": "Transformer",
@@ -412,6 +532,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2025,
     },
+    "Gemini Omni Flash Preview": {
+        "company": "Google DeepMind",
+        "architecture": "Diffusion",
+        "modality": ["video", "audio"],
+        "tasks": ["text-to-video", "image-to-video", "video-generation", "audio-generation"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
     "Veo 3.1": {
         "company": "Google DeepMind",
         "architecture": "Diffusion",
@@ -435,6 +563,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["text-to-video", "video-generation", "image-to-video"],
         "parameters": "undisclosed",
         "release_year": 2024,
+    },
+    "Muse Spark": {
+        "company": "Meta AI",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "conversational", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
     },
     "Llama 4 Maverick": {
         "company": "Meta AI",
@@ -491,6 +627,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["feature-extraction", "embedding-generation"],
         "parameters": "undisclosed",
         "release_year": 2023,
+    },
+    "Mistral Medium 3.5": {
+        "company": "Mistral AI",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "128B",
+        "release_year": 2026,
     },
     "Mistral Small 4": {
         "company": "Mistral AI",
@@ -596,6 +740,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "141B total / 39B active",
         "release_year": 2024,
     },
+    "OCR 4": {
+        "company": "Mistral AI",
+        "architecture": "Transformer",
+        "modality": ["image", "text"],
+        "tasks": ["ocr", "document-understanding", "feature-extraction"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
     "OCR 3": {
         "company": "Mistral AI",
         "architecture": "Transformer",
@@ -609,6 +761,22 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "architecture": "Transformer",
         "modality": ["audio"],
         "tasks": ["speech-to-text", "audio-classification"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Voxtral TTS": {
+        "company": "Mistral AI",
+        "architecture": "Transformer",
+        "modality": ["audio"],
+        "tasks": ["text-to-speech", "audio-generation"],
+        "parameters": "4B",
+        "release_year": 2026,
+    },
+    "Grok 4.3": {
+        "company": "xAI",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "conversational", "agentic workflow"],
         "parameters": "undisclosed",
         "release_year": 2026,
     },
@@ -635,6 +803,38 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["text-generation", "reasoning", "code-generation"],
         "parameters": "undisclosed",
         "release_year": 2025,
+    },
+    "Grok Build 0.1": {
+        "company": "xAI",
+        "architecture": "Transformer",
+        "modality": ["text"],
+        "tasks": ["code-generation", "agentic workflow", "reasoning"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Grok Imagine Video 1.5": {
+        "company": "xAI",
+        "architecture": "Diffusion",
+        "modality": ["video", "audio"],
+        "tasks": ["image-to-video", "video-generation", "audio-generation"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "DeepSeek-V4-Pro": {
+        "company": "DeepSeek",
+        "architecture": "Mixture of Experts",
+        "modality": ["text"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "1.6T total / 49B active",
+        "release_year": 2026,
+    },
+    "DeepSeek-V4-Flash": {
+        "company": "DeepSeek",
+        "architecture": "Mixture of Experts",
+        "modality": ["text"],
+        "tasks": ["text-generation", "reasoning", "code-generation"],
+        "parameters": "284B total / 13B active",
+        "release_year": 2026,
     },
     "DeepSeek-V3.2": {
         "company": "DeepSeek",
@@ -667,6 +867,30 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["text-generation", "reasoning", "code-generation"],
         "parameters": "671B",
         "release_year": 2025,
+    },
+    "Qwen3.7-Max": {
+        "company": "Alibaba Cloud",
+        "architecture": "Transformer",
+        "modality": ["text"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Qwen3.5-Omni": {
+        "company": "Alibaba Cloud",
+        "architecture": "Transformer",
+        "modality": ["text", "image", "audio", "video"],
+        "tasks": ["multi-modal generation", "conversational", "speech-to-text", "text-to-speech"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
+    "Qwen3.5": {
+        "company": "Alibaba Cloud",
+        "architecture": "Mixture of Experts",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "397B total / 17B active",
+        "release_year": 2026,
     },
     "Qwen3-Max-Thinking": {
         "company": "Alibaba Cloud",
@@ -715,6 +939,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["multi-modal generation", "document-understanding", "image-to-text"],
         "parameters": "undisclosed",
         "release_year": 2025,
+    },
+    "Command A+": {
+        "company": "Cohere",
+        "architecture": "Mixture of Experts",
+        "modality": ["text", "image"],
+        "tasks": ["text-generation", "reasoning", "agentic workflow", "retrieval-augmented generation"],
+        "parameters": "218B total / 25B active",
+        "release_year": 2026,
     },
     "Command A": {
         "company": "Cohere",
@@ -812,6 +1044,22 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2025,
     },
+    "FLUX.2 pro": {
+        "company": "Black Forest Labs",
+        "architecture": "Diffusion",
+        "modality": ["image"],
+        "tasks": ["text-to-image", "image-to-image"],
+        "parameters": "undisclosed",
+        "release_year": 2025,
+    },
+    "FLUX.2 dev": {
+        "company": "Black Forest Labs",
+        "architecture": "Diffusion",
+        "modality": ["image"],
+        "tasks": ["text-to-image", "image-to-image"],
+        "parameters": "32B",
+        "release_year": 2025,
+    },
     "FLUX.1 Kontext max": {
         "company": "Black Forest Labs",
         "architecture": "Diffusion",
@@ -860,6 +1108,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2023,
     },
+    "Stable Audio 3.0": {
+        "company": "Stability AI",
+        "architecture": "Diffusion",
+        "modality": ["audio"],
+        "tasks": ["audio-generation"],
+        "parameters": "2.7B",
+        "release_year": 2026,
+    },
     "Stable Audio 2.0": {
         "company": "Stability AI",
         "architecture": "Diffusion",
@@ -867,6 +1123,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["audio-generation", "text-to-speech"],
         "parameters": "undisclosed",
         "release_year": 2024,
+    },
+    "Midjourney v8": {
+        "company": "Midjourney",
+        "architecture": "Diffusion",
+        "modality": ["image"],
+        "tasks": ["text-to-image", "image-to-image"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
     },
     "Midjourney v7": {
         "company": "Midjourney",
@@ -892,6 +1156,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2023,
     },
+    "Runway Gen-4.5": {
+        "company": "Runway",
+        "architecture": "Diffusion",
+        "modality": ["video"],
+        "tasks": ["text-to-video", "video-generation", "image-to-video"],
+        "parameters": "undisclosed",
+        "release_year": 2025,
+    },
     "Runway Gen-4": {
         "company": "Runway",
         "architecture": "Diffusion",
@@ -907,6 +1179,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["text-to-video", "video-generation", "image-to-video"],
         "parameters": "undisclosed",
         "release_year": 2024,
+    },
+    "Kling 3.0": {
+        "company": "Kuaishou",
+        "architecture": "Diffusion",
+        "modality": ["video", "audio"],
+        "tasks": ["text-to-video", "video-generation", "image-to-video", "audio-generation"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
     },
     "Kling 2.0": {
         "company": "Kuaishou",
@@ -948,6 +1228,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2024,
     },
+    "Ideogram 4.0": {
+        "company": "Ideogram",
+        "architecture": "Diffusion",
+        "modality": ["image"],
+        "tasks": ["text-to-image", "image-to-image"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
     "Ideogram 3.0": {
         "company": "Ideogram",
         "architecture": "Diffusion",
@@ -964,6 +1252,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2025,
     },
+    "Eleven Music v2": {
+        "company": "ElevenLabs",
+        "architecture": "Transformer",
+        "modality": ["audio"],
+        "tasks": ["audio-generation"],
+        "parameters": "undisclosed",
+        "release_year": 2026,
+    },
     "Scribe v1": {
         "company": "ElevenLabs",
         "architecture": "Transformer",
@@ -971,6 +1267,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["speech-to-text", "audio-classification"],
         "parameters": "undisclosed",
         "release_year": 2025,
+    },
+    "Phi-4-reasoning-vision": {
+        "company": "Microsoft",
+        "architecture": "Transformer",
+        "modality": ["text", "image"],
+        "tasks": ["reasoning", "multi-modal generation", "document-understanding", "ocr"],
+        "parameters": "15B",
+        "release_year": 2026,
     },
     "Phi-4": {
         "company": "Microsoft",
@@ -1020,6 +1324,22 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "parameters": "undisclosed",
         "release_year": 2025,
     },
+    "GLM-5.2": {
+        "company": "Zhipu AI",
+        "architecture": "Mixture of Experts",
+        "modality": ["text"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "753B total / 40B active",
+        "release_year": 2026,
+    },
+    "GLM-5": {
+        "company": "Zhipu AI",
+        "architecture": "Mixture of Experts",
+        "modality": ["text"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "744B total / 40B active",
+        "release_year": 2026,
+    },
     "GLM-4.5": {
         "company": "Zhipu AI",
         "architecture": "Mixture of Experts",
@@ -1027,6 +1347,14 @@ MODEL_CORRELATIONS: dict[str, ModelData] = {
         "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
         "parameters": "undisclosed",
         "release_year": 2025,
+    },
+    "Kimi K2.6": {
+        "company": "Moonshot AI",
+        "architecture": "Mixture of Experts",
+        "modality": ["text", "image", "video"],
+        "tasks": ["text-generation", "reasoning", "code-generation", "agentic workflow"],
+        "parameters": "1T total / 32B active",
+        "release_year": 2026,
     },
     "Yi-Lightning": {
         "company": "01.AI",
