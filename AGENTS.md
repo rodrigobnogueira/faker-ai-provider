@@ -22,6 +22,14 @@ test data. Keep changes small, data-focused, and easy to verify.
 
 ## Publishing a Release
 
+The primary path is automated: pushing a `vX.Y.Z` tag triggers `.github/workflows/release.yml`,
+which runs the tests, builds fresh distributions, verifies the tag matches the `pyproject.toml`
+version, and publishes to PyPI via **Trusted Publishing** (OIDC — no token or secret; the
+publisher is registered on PyPI under project → Settings → Publishing for `release.yml`,
+environment `pypi`). The workflow also supports `workflow_dispatch` to (re)run a release for an
+already-pushed tag. The checklist below still applies — the workflow automates the build/upload
+steps, not the judgment ones; the manual `twine upload` flow remains a valid fallback.
+
 - Publish only from an up-to-date `main` branch after all intended PRs are merged.
 - Check PyPI for the latest published `faker-ai-provider` version before choosing the next version.
 - Update both `pyproject.toml` and `faker_ai/__init__.py` to the same release version.
