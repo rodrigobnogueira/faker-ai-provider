@@ -20,9 +20,9 @@ fake = Faker()
 fake.add_provider(AiProvider)
 
 # Generate correlated AI data
-fake.ai_model()           # 'Claude Opus 4.7'
-fake.ai_company()         # 'Anthropic'
-fake.full_ai_model_spec() # 'gpt-oss-120b by OpenAI: Transformer architecture, 120B parameters, for reasoning.'
+fake.ai_model()  # 'Claude Opus 4.7'
+fake.ai_company()  # 'Anthropic'
+fake.full_ai_model_spec()  # 'gpt-oss-120b by OpenAI: Transformer architecture, 120B parameters, for reasoning.'
 ```
 
 ## Seeding for Reproducibility
@@ -35,7 +35,7 @@ fake.add_provider(AiProvider)
 fake.seed_instance(42)
 
 # These will always return the same values with seed 42
-print(fake.ai_model())    # Always 'LLaMA 3 70B'
+print(fake.ai_model())  # Always 'LLaMA 3 70B'
 print(fake.ai_company())  # Always 'Apple'
 ```
 

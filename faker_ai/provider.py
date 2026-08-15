@@ -24,6 +24,7 @@ class AiProvider(BaseProvider):
     def model_correlations(self) -> dict[str, ModelData]:
         if self._model_correlations is None:
             from .model_correlations import MODEL_CORRELATIONS
+
             self._model_correlations = MODEL_CORRELATIONS
         return self._model_correlations
 
@@ -186,19 +187,12 @@ class AiProvider(BaseProvider):
 
     def ai_model_description(self, model: str | None = None) -> str:
         scenario = self.model_scenario(model)
-        return (
-            f"{scenario['model']} by {scenario['company']} "
-            f"({scenario['parameters']}, {scenario['architecture']})"
-        )
+        return f"{scenario['model']} by {scenario['company']} ({scenario['parameters']}, {scenario['architecture']})"
 
     def full_ai_model_spec(self, model: str | None = None) -> str:
         scenario = self.model_scenario(model)
         task = self.random_element(scenario["tasks"])
-        return (
-            f"{scenario['model']} by {scenario['company']}: "
-            f"{scenario['architecture']} architecture, {scenario['parameters']} parameters, "
-            f"for {task}."
-        )
+        return f"{scenario['model']} by {scenario['company']}: {scenario['architecture']} architecture, {scenario['parameters']} parameters, for {task}."
 
     def ai_training_run(self) -> dict[str, str]:
         scenario = self.model_scenario()
@@ -234,4 +228,3 @@ class AiProvider(BaseProvider):
             "accuracy": round(self.random_int(70, 99) + self.random_int(0, 99) * 0.01, 2),
             "loss": round(self.random_int(1, 50) * 0.01, 3),
         }
-

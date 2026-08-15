@@ -1,7 +1,7 @@
 """
 Showcase for faker-ai-provider library.
 
-This script demonstrates the capabilities of the AI Provider 
+This script demonstrates the capabilities of the AI Provider
 for generating realistic AI/ML-related test data with correlations.
 """
 

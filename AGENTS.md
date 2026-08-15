@@ -11,6 +11,14 @@ test data. Keep changes small, data-focused, and easy to verify.
 - Run `python -m pytest` before opening a PR when dependencies are available.
 - Do not include local environment files such as `.venv/`, `.pytest_cache/`, or editor files in commits.
 
+## Tooling and CI
+
+- CI must run every tool the `dev` extra declares. A tool that is declared but never invoked by `.github/workflows/tests.yml` is either wired into the workflow or dropped from the extra.
+
+## Repository and Package Renames
+
+- After any repository or package rename, update every metadata surface that still carries the old name in the same change: `[project.urls]` in `pyproject.toml`, README badges and links, the GitHub repo About, and the docs. For PyPI, pair the URL fix with a patch release — the registry keeps serving the links from the last published version.
+
 ## Model Catalog Updates
 
 - Model catalog updates should be additive by default.
