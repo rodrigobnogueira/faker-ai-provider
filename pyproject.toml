@@ -26,6 +26,14 @@ dependencies = [
     "faker>=18.0.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "mypy",
+    "pre-commit",
+]
+
 [project.urls]
 Homepage = "https://github.com/rodrigobnogueira/faker-ai-provider"
 Repository = "https://github.com/rodrigobnogueira/faker-ai-provider"
@@ -33,3 +41,13 @@ Documentation = "https://github.com/rodrigobnogueira/faker-ai-provider#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.ruff]
+line-length = 200
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
