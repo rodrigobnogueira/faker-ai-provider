@@ -1,5 +1,6 @@
 import pytest
 from faker import Faker
+
 from faker_ai import AiProvider
 
 
@@ -13,6 +14,7 @@ def faker():
 class TestBasicMethods:
     def test_ai_model(self, faker):
         from faker_ai.model_correlations import MODEL_CORRELATIONS
+
         for _ in range(50):
             result = faker.ai_model()
             assert isinstance(result, str)
@@ -312,6 +314,7 @@ class TestCompositeMethods:
 class TestSeeding:
     def test_seeding_reproducibility(self):
         from faker import Faker
+
         from faker_ai import AiProvider
 
         fake1 = Faker()
@@ -328,6 +331,7 @@ class TestSeeding:
 
     def test_different_seeds_different_results(self):
         from faker import Faker
+
         from faker_ai import AiProvider
 
         fake1 = Faker()
