@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "faker-ai-provider"
-version = "2.2.0"
+version = "2.2.1"
 description = "Generate realistic AI/ML test data: 180+ models, 30+ companies, 20+ frameworks, 30+ datasets, architectures, tasks, and parameters"
 readme = "README.md"
 authors = [{name = "Rodrigo Nogueira", email = "rodrigo.b.nogueira@gmail.com"}]
@@ -27,8 +27,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/rodrigobnogueira/faker-ai"
-Repository = "https://github.com/rodrigobnogueira/faker-ai"
+Homepage = "https://github.com/rodrigobnogueira/faker-ai-provider"
+Repository = "https://github.com/rodrigobnogueira/faker-ai-provider"
+Documentation = "https://github.com/rodrigobnogueira/faker-ai-provider#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
