@@ -199,6 +199,66 @@ class TestCorrelationMethods:
         }
         assert expected_models.issubset(MODEL_CORRELATIONS)
 
+    def test_catalog_includes_the_september_2026_refresh(self, faker):
+        """Pin the models added in the 2026-09 refresh.
+
+        Every name here was checked against the vendor's own model
+        documentation, not a third-party timeline: Anthropic's models overview,
+        OpenAI's models reference, Google's Gemini API models page, and xAI's
+        model docs.
+        """
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        refreshed_models = {
+            # Anthropic — platform.claude.com models overview
+            "Claude Opus 5",
+            "Claude Fable 5.1",
+            "Claude Mythos 5.1",
+            # OpenAI — developers.openai.com models reference
+            "GPT-6 Astra",
+            "GPT-5.6 Sol",
+            "GPT-5.6 Luna",
+            "GPT-5.6 Terra",
+            "GPT Realtime 2.1",
+            "GPT Realtime 2.1 Mini",
+            # Google DeepMind — ai.google.dev Gemini API models
+            "Gemini 3.6 Flash",
+            "Gemini 3.7 Flash",
+            "Gemini 3.8 Flash",
+            "Gemini 3.5 Flash-Lite",
+            "Gemini 3.5 Transcribe",
+            "Gemini Robotics ER 2",
+            # xAI — docs.x.ai models
+            "Grok 4.5",
+            "Grok 4.6",
+            "Grok Imagine Image 2.0",
+        }
+        assert refreshed_models.issubset(MODEL_CORRELATIONS)
+
+    def test_catalog_vocabularies_stay_closed(self, faker):
+        """New entries must reuse the established vocabularies.
+
+        The provider's value is that a generated scenario is internally
+        coherent, so a one-off modality or task string (a typo, or an invented
+        label) is a defect even though nothing else would catch it.
+        """
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        modalities = {"audio", "image", "text", "video"}
+        architectures = {
+            "Diffusion",
+            "Hybrid Transformer-SSM",
+            "Mixture of Experts",
+            "Recurrent Neural Network",
+            "State Space",
+            "Transformer",
+        }
+
+        for name, data in MODEL_CORRELATIONS.items():
+            assert set(data["modality"]) <= modalities, name
+            assert data["architecture"] in architectures, name
+            assert data["tasks"], name
+
     def test_catalog_omits_unverified_future_models(self, faker):
         from faker_ai.model_correlations import MODEL_CORRELATIONS
 
