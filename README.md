@@ -2,7 +2,7 @@
 
 Faker provider for generating AI/ML-related fake data with **correlated relationships** between models, companies, architectures, and capabilities.
 
-> **Model Data Updated:** July 2026 (includes Claude Fable 5, GPT-5.5, Gemini 3.5 Flash, DeepSeek-V4, Qwen3.7-Max, Grok 4.3, Kimi K2.6, and more)
+> **Model Data Updated:** late September 2026 — 238 models from 32 vendors (includes Claude Opus 5.5, GPT-6 Sol, Gemini 3.8 Live, Grok 4.7, Qwen3.8-Max, DeepSeek-V4.1-Flash, Kimi K3, FLUX 3, Eleven v4, and more)
 
 ## Installation
 

@@ -170,7 +170,8 @@ class TestCorrelationMethods:
 
     def test_new_vendor_moonshot_ai(self, faker):
         assert faker.ai_company_for_model("Kimi K2.6") == "Moonshot AI"
-        assert faker.ai_model_for_company("Moonshot AI") == "Kimi K2.6"
+        assert faker.ai_company_for_model("Kimi K3") == "Moonshot AI"
+        assert faker.ai_model_for_company("Moonshot AI") in {"Kimi K2.6", "Kimi K3"}
 
     def test_catalog_keeps_verified_legacy_models(self, faker):
         from faker_ai.model_correlations import MODEL_CORRELATIONS
@@ -235,6 +236,79 @@ class TestCorrelationMethods:
         }
         assert refreshed_models.issubset(MODEL_CORRELATIONS)
 
+    def test_catalog_includes_the_late_september_2026_refresh(self, faker):
+        """Pin the models added in the late-September 2026 refresh.
+
+        Each name appears verbatim on the vendor's own model page, and its
+        release was dated from the vendor's changelog or release notes, never
+        from a third-party timeline.
+        """
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        refreshed_models = {
+            # Anthropic — platform.claude.com models overview + release notes
+            "Claude Opus 5.5",
+            "Claude Sonnet 5.5",
+            # OpenAI — developers.openai.com models reference + changelog
+            "GPT-6 Sol",
+            "GPT-6 Luna",
+            "GPT-5.6 Cyber",
+            "GPT Image 2.5 Sunburst",
+            "GPT Image 2.5 Flare",
+            "GPT Live 1",
+            "GPT Realtime Translate",
+            "GPT Realtime Whisper",
+            "GPT Realtime 1.5",
+            "GPT Transcribe",
+            # Google DeepMind — ai.google.dev Gemini API models + changelog
+            "Gemini 3.8 Live",
+            "Gemini 3.8 Flash TTS",
+            "Gemini 3.8 Flash-Lite TTS",
+            "Gemini 3.1 Flash-Lite",
+            "Gemini 3.1 Flash-Lite Image",
+            "Veo 3.1 Lite",
+            "Lyria 3.5",
+            "Gemini Robotics ER 1.6",
+            # xAI — docs.x.ai models + release notes
+            "Grok 4.7",
+            "Grok Voice Think Fast 2.0",
+            # Meta — developer.meta.com / llama.com model pages
+            "Muse Spark 1.3",
+            # Mistral AI — docs.mistral.ai models overview + changelog
+            "OCR 4.1",
+            # Zhipu AI — docs.z.ai release notes
+            "GLM-5.3",
+            # DeepSeek — api-docs.deepseek.com change log
+            "DeepSeek-V4.1-Flash",
+            # Moonshot AI — platform.kimi.ai docs
+            "Kimi K3",
+            # ElevenLabs — elevenlabs.io/docs/models + changelog
+            "Eleven v4",
+            "Eleven v4 Turbo",
+            "Scribe v2 Medical",
+            # Black Forest Labs — docs.bfl.ai release notes
+            "FLUX 3",
+            # Alibaba Cloud — Model Studio "newly released models"
+            "Qwen3.8-Max",
+            "Qwen3.8-2.4T-A95B",
+            "Qwen3.8-Flash",
+            "Qwen3.8-27B",
+            "Qwen3.8-Omni-Flash",
+            "Qwen-Image-3.0",
+            "Wan3.0",
+            # Midjourney — updates.midjourney.com
+            "Midjourney v8.1",
+            "Midjourney v8.2",
+        }
+        assert refreshed_models.issubset(MODEL_CORRELATIONS)
+        for name in refreshed_models:
+            assert MODEL_CORRELATIONS[name]["release_year"] == 2026, name
+
+        # Parameter counts only where the vendor published them.
+        assert faker.ai_parameters_for_model("Qwen3.8-2.4T-A95B") == "2.4T total / 95B active"
+        assert faker.ai_parameters_for_model("Qwen3.8-27B") == "27B"
+        assert faker.ai_parameters_for_model("Kimi K3") == "undisclosed"
+
     def test_catalog_vocabularies_stay_closed(self, faker):
         """New entries must reuse the established vocabularies.
 
@@ -281,13 +355,17 @@ class TestCorrelationMethods:
             "Phi-5",
             "Qwen4",
             "GLM-6",
-            "Kimi K3",
             "Runway Gen-5",
             "Midjourney v9",
-            "Eleven v4",
+            # The vendor's name is "FLUX 3", which is in the catalogue; the
+            # dotted form was a guess before the release.
             "FLUX.3",
             "Ideogram 5",
             "Pika 3.0",
+            # Announced, not released, as of late September 2026.
+            "Kling 4.0",
+            # "Kimi K3" and "Eleven v4" left this list when their vendors
+            # shipped them; both are pinned in the late-September refresh.
         }
         assert MODEL_CORRELATIONS.keys().isdisjoint(unverified_models)
 
