@@ -154,7 +154,7 @@ class TestCorrelationMethods:
         assert expected_models.issubset(MODEL_CORRELATIONS)
 
     def test_claude_5_family_correlations(self, faker):
-        for model in ("Claude Fable 5", "Claude Sonnet 5"):
+        for model in ("Claude Fable 5", "Claude Sonnet 5", "Claude Haiku 5.5"):
             assert faker.ai_company_for_model(model) == "Anthropic"
             assert faker.ai_parameters_for_model(model) == "undisclosed"
             tasks = faker.ai_tasks_for_model(model)
@@ -307,7 +307,114 @@ class TestCorrelationMethods:
         # Parameter counts only where the vendor published them.
         assert faker.ai_parameters_for_model("Qwen3.8-2.4T-A95B") == "2.4T total / 95B active"
         assert faker.ai_parameters_for_model("Qwen3.8-27B") == "27B"
-        assert faker.ai_parameters_for_model("Kimi K3") == "undisclosed"
+        # Moonshot's model list published the count after the release.
+        assert faker.ai_parameters_for_model("Kimi K3") == "2.8T"
+
+    def test_catalog_includes_the_october_2026_refresh(self, faker):
+        """Pin the models added in the October 2026 refresh.
+
+        Each name appears verbatim on the vendor's own model page, changelog,
+        release notes or launch post, which also dates the release. Previews,
+        aliases and snapshots of models already listed were left out.
+        """
+        from faker_ai.model_correlations import MODEL_CORRELATIONS
+
+        refreshed_models = {
+            # Anthropic — platform.claude.com release notes
+            "Claude Haiku 5.5",
+            # OpenAI — developers.openai.com changelog + models reference
+            "GPT-6.1 Sol",
+            "GPT Live Transcribe",
+            "GPT-Rosalind",
+            # Google DeepMind — Gemini API changelog + Gemma releases
+            "Gemini 4 Argon",
+            "Gemini Nano Banana 2.1",
+            "Gemini Omni Flash",
+            "Gemini 3.8 Live Extended Thinking",
+            "EmbeddingGemma 2",
+            # Meta — research.meta.ai + dev.meta.ai
+            "Muse Image",
+            "Muse Spark 1.1",
+            "Muse Spark 1.2",
+            "Muse Glimmer",
+            "Muse Voice Transcribe",
+            "Muse Spark Open",
+            # xAI — docs.x.ai release notes
+            "Grok Voice 3.0",
+            "Grok Voice Transcribe 2.0",
+            # Alibaba Cloud — Model Studio "newly released models"
+            "Qwen3.7-Flash",
+            "Qwen3.7-Text-Embedding",
+            "Qwen-Image-3.0-Pro",
+            "Qwen-Image-2.1-Pro",
+            "Qwen-Image-2.1-Turbo",
+            "Qwen-MT-Image-2.0",
+            "Qwen-Audio-3.0-TTS-Plus",
+            "Qwen-Audio-3.0-TTS-Flash",
+            "Qwen-Audio-3.0-ASR-Flash",
+            "Qwen-Audio-3.0-Realtime-Plus",
+            "Qwen-Audio-3.0-Realtime-Flash",
+            "Qwen-Audio-3.1-Realtime-Plus",
+            # Cohere — docs.cohere.com changelog
+            "Cohere Embed v5 Pro",
+            "Cohere Embed v5 Fast",
+            "North Small Translate",
+            "Cohere Parse",
+            "Cohere Transcribe Arabic",
+            # Black Forest Labs — docs.bfl.ai release notes
+            "FLUX 3 Image Klein",
+            # ByteDance — seed.bytedance.com launch posts
+            "Seedream 5.0 Pro",
+            "Seedance 2.5",
+            "Seed Audio 1.0",
+            "SeedRealtime",
+            # ElevenLabs — elevenlabs.io/docs changelog + models
+            "Eleven Music v2.5",
+            # Microsoft — microsoft.ai news
+            "MAI-Transcribe-2",
+            "MAI-Transcribe-2-Streaming",
+            "MAI-Voice-2.1",
+            "MAI-Voice-2.1-Flash",
+            # Pika Labs — pika.art blog
+            "Pika Speech",
+            "Pika Music",
+            "Pika SFX",
+            "Pika Soundtrack",
+            # Recraft — recraft.ai blog
+            "Recraft V4.1 Flash",
+            # Ideogram — developer.ideogram.ai API reference
+            "Ideogram 4.5",
+            # Zhipu AI — docs.z.ai release notes
+            "GLM-5.3-Flash",
+            # TII — tii.ae news
+            "Falcon-Emirati",
+            "Falcon-ASR",
+            "Falcon-OCR-Arabic",
+            # Cartesia — docs.cartesia.ai changelog
+            "Sonic 3.6",
+            # Released before July 2026 and missed until now; their siblings
+            # (Claude Mythos 5.1, Gemini 3 Pro Image Preview) were listed.
+            "Claude Mythos 5",
+            "Gemini 3 Pro Image",
+        }
+        assert refreshed_models.issubset(MODEL_CORRELATIONS)
+        for name in refreshed_models:
+            assert MODEL_CORRELATIONS[name]["release_year"] == 2026, name
+
+        # Parameter counts only where the vendor published them.
+        assert faker.ai_parameters_for_model("Muse Spark Open") == "816B total / 42B active"
+        assert faker.ai_parameters_for_model("GLM-5.3-Flash") == "320B total / 18B active"
+        assert faker.ai_parameters_for_model("North Small Translate") == "218B total / 25B active"
+        assert faker.ai_parameters_for_model("Muse Glimmer") == "30B"
+        assert faker.ai_parameters_for_model("Falcon-Emirati") == "7B"
+        assert faker.ai_parameters_for_model("FLUX 3 Image Klein") == "5.6B"
+        assert faker.ai_parameters_for_model("Pika Speech") == "3B"
+        assert faker.ai_parameters_for_model("Cohere Parse") == "2.3B"
+        assert faker.ai_parameters_for_model("Cohere Transcribe Arabic") == "2B"
+        assert faker.ai_parameters_for_model("Falcon-ASR") == "1.6B"
+        assert faker.ai_parameters_for_model("EmbeddingGemma 2") == "740M"
+        assert faker.ai_parameters_for_model("Claude Haiku 5.5") == "undisclosed"
+        assert faker.ai_parameters_for_model("Gemini 4 Argon") == "undisclosed"
 
     def test_catalog_vocabularies_stay_closed(self, faker):
         """New entries must reuse the established vocabularies.
@@ -347,6 +454,7 @@ class TestCorrelationMethods:
             "Sora 3",
             "Llama 4 Behemoth",
             "Llama 5",
+            # A Public Preview since 2026-10-06, not generally available.
             "Mistral Large 4",
             "DeepSeek-R2",
             "Veo 4",
@@ -362,7 +470,7 @@ class TestCorrelationMethods:
             "FLUX.3",
             "Ideogram 5",
             "Pika 3.0",
-            # Announced, not released, as of late September 2026.
+            # Announced, not released, as of mid-October 2026.
             "Kling 4.0",
             # "Kimi K3" and "Eleven v4" left this list when their vendors
             # shipped them; both are pinned in the late-September refresh.
