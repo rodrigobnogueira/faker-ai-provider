@@ -9,7 +9,7 @@ Changes here should stay small, data-focused, and easy to verify.
 
 ## Supported versions
 
-- Python 3.10, 3.11, 3.12, 3.13, and 3.14 — the classifiers in `pyproject.toml` and the CI
+- Python 3.11, 3.12, 3.13, 3.14, and 3.15 — the classifiers in `pyproject.toml` and the CI
   matrix must always list the same set.
 - Faker 18.0.0 or newer (`faker>=18.0.0`). Do not use Faker APIs that are unavailable on
   that floor without raising the floor in `pyproject.toml`.
